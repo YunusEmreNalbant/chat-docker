@@ -40,7 +40,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./src:/var/www/html
-
     ports:
       - "9000:9000"
     networks:
