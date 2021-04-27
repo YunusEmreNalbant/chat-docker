@@ -51,6 +51,18 @@ services:
       - "6379:6379"
     networks:
       - laravel
+
+  composer:
+    image: composer:latest
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    command: composer install -d /var/www/html
+
+    depends_on:
+      - php
+    networks:
+      - laravel
 volumes:
   laravel-data:
 
