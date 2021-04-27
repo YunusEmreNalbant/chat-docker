@@ -12,7 +12,7 @@ services:
       - ./src:/var/www/html
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      - php
+      - app
       - mysql
       - redis
     networks:
@@ -34,7 +34,8 @@ services:
       - laravel
     volumes:
       - laravel-data:/data/db
-  php:
+  app:
+    container_name: app
     build:
       context: .
       dockerfile: Dockerfile
@@ -60,7 +61,7 @@ services:
     command: composer install -d /var/www/html
 
     depends_on:
-      - php
+      - app
     networks:
       - laravel
 volumes:
