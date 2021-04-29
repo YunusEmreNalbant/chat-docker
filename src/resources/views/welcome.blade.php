@@ -16,7 +16,43 @@
     <div id="example">
 
     </div>
-    test
+    <div class="row col-8 m-auto">
+        <table class="table caption-top">
+            <caption>List of users</caption>
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">adasdasdasdasd</th>
+                <th scope="col">mail</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($users as $user)
+                <tr>
+                    <th scope="row">{{$user->id}}</th>
+                    <td>{{$user->name}}</td>
+                    <td>{{$user->email}}</td>
+
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+        <form method="post" action="{{route('save')}}">
+            @csrf
+            <div>
+                <label>Adınız</label>
+                <input type="text" name="name"/>
+                <label>Email</label>
+                <input type="text" name="email"/>
+                <button type="submit">KAYDET</button>
+            </div>
+        </form>
+
+        <div>
+
+        </div>
+
+    </div>
 </div>
 <!-- Optional JavaScript; choose one of the two! -->
 

@@ -34,7 +34,7 @@ class NewMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('NewMessage');
+        return ['test_channel'];
     }
 
     public function broadcastAs()
