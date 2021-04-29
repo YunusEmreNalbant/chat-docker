@@ -34,5 +34,5 @@ window.io = require('socket.io-client');
 
 window.Echo = new Echo({
     broadcaster: 'socket.io',
-    host: window.location.hostname + ':6001' // this is laravel-echo-server host
+    host:  'http://127.0.0.1:6001' // this is laravel-echo-server host
 });

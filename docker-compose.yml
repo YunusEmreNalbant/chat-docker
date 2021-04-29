@@ -36,6 +36,7 @@ services:
       - laravel-data:/data/db
   app:
     container_name: app
+
     build:
       context: .
       dockerfile: Dockerfile
@@ -59,11 +60,30 @@ services:
       - ./src:/var/www/html
     working_dir: /var/www/html
     command: composer install -d /var/www/html
-
     depends_on:
       - app
     networks:
       - laravel
+  laravel-echo-server:
+    image: oanhnn/laravel-echo-server:latest
+    depends_on:
+      - redis
+      - app
+      - nginx
+    environment:
+      LARAVEL_ECHO_SERVER_AUTH_HOST: http://nginx
+      LARAVEL_ECHO_SERVER_DEBUG: 'true'
+      LARAVEL_ECHO_SERVER_DB: redis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PREFIX: laravel_
+      REDIS_PASSWORD:
+      REDIS_DB: 0
+    networks:
+      - laravel
+    ports:
+      - 6001:6001
+    restart: unless-stopped
 volumes:
   laravel-data:
 

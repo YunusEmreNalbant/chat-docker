@@ -1,32 +1,34 @@
-import React, {useEffect} from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
-function Example() {
+class Example extends Component {
 
-    useEffect(() => {
-        console.log("ok")
-        window.Echo.channel('laravel_database_test_channel')
-            .listen('.test', e => {
-                console.log(e)
-            })
-    }, [])
+    constructor(props) {
+        super(props);
+        this.state={
+            messages:[]
+        }
+    }
+    componentDidMount() {
+        try{
+        Echo.channel(`laravel_database_NewMessage`)
+            .listen('.test', (e) => {
+                console.log(e);
+            });
+        }catch (e){
+            console.log(e);
+        }
+        console.log('hellö');
+    }
 
-    return (
-        <div className="container">
-            <div className="row justify-content-center">
-               <div id={"chat-wrap"}>
-                   <h2>chat</h2>
-                   <div id={"chat-window"}>
-                       <div id={"output"}></div>
-                       <div id={"feedback"}></div>
-                   </div>
-                   <input type={"text"} id={"sender"} placeholder={"Ad"}/>
-                   <input type={"text"} id={"message"} placeholder={"Mesaj"}/>
-                   <button id={"submitBtn"}>GÖNDER</button>
-               </div>
+    render() {
+        return (
+            <div>
             </div>
-        </div>
-    );
+        );
+    }
+
+
 }
 
 export default Example;
