@@ -1,27 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="149d2915-f068-4cda-b1b5-ea4c9cc5b686" name="Default Changelist" comment="echo server">
-      <change afterPath="$PROJECT_DIR$/src/app/Http/Resources/UserWithoutFriendResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/Models/Friend.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/css/chat.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/js/components/Chat.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/ChatPanel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/Message.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/User.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/UserList.js" afterDir="false" />
+    <list default="true" id="149d2915-f068-4cda-b1b5-ea4c9cc5b686" name="Default Changelist" comment="bişeyler">
+      <change afterPath="$PROJECT_DIR$/src/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/Http/Resources/UserResource.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/database/factories/FriendFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/database/migrations/2021_04_30_161324_create_friends_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/factories/UserFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/js/bootstrap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/js/components/Example.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/views/welcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +119,7 @@
       <workItem from="1619722809153" duration="697000" />
       <workItem from="1619723637956" duration="330000" />
       <workItem from="1619724314058" duration="1470000" />
-      <workItem from="1619792151328" duration="13592000" />
+      <workItem from="1619792151328" duration="14723000" />
     </task>
     <task id="LOCAL-00001" summary="env updated">
       <created>1619549621110</created>
@@ -155,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619561075792</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="bişeyler">
+      <created>1619809406239</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1619809406239</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,6 +170,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="env updated" />
     <MESSAGE value="echo server" />
-    <option name="LAST_COMMIT_MESSAGE" value="echo server" />
+    <MESSAGE value="bişeyler" />
+    <option name="LAST_COMMIT_MESSAGE" value="bişeyler" />
   </component>
 </project>
