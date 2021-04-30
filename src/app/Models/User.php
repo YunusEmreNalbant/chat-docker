@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -29,15 +28,25 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+
+
+
+    public function user_invitations()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'inviter_id', 'receiver_id');
+    }
+
+    public function user_recevived_invitations()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'receiver_id', 'inviter_id');
+    }
+
+    public function getFriends()
+    {
+        $first = $this->user_invitations()->get();
+        $second = $this->user_recevived_invitations()->get();
+        return $first->merge($second);
+    }
 }

@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -12,45 +12,8 @@
     <title>Hello, world!</title>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     <div id="example">
-
-    </div>
-    <div class="row col-8 m-auto">
-        <table class="table caption-top">
-            <caption>List of users</caption>
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">adasdasdasdasd</th>
-                <th scope="col">mail</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($users as $user)
-                <tr>
-                    <th scope="row">{{$user->id}}</th>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->email}}</td>
-
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-        <form method="post" action="{{route('save')}}">
-            @csrf
-            <div>
-                <label>Adınız</label>
-                <input type="text" name="name"/>
-                <label>Email</label>
-                <input type="text" name="email"/>
-                <button type="submit">KAYDET</button>
-            </div>
-        </form>
-
-        <div>
-
-        </div>
 
     </div>
 </div>
