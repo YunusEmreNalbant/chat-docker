@@ -2106,6 +2106,7 @@ function Chat() {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "inbox_msg",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ChatComponent_UserList__WEBPACK_IMPORTED_MODULE_5__.default, {
+          selectedUser: selectedUser,
           selectUser: changeSelectedUser,
           users: users
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ChatComponent_ChatPanel__WEBPACK_IMPORTED_MODULE_4__.default, {
@@ -2276,25 +2277,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var User = function User(props) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "chat_people",
-    onClick: function onClick() {
-      props.selectUser(props.user);
-    },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "chat_img",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-        src: "https://ptetutorials.com/images/user-profile.png",
-        alt: "sunil"
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "chat_ib",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
-        children: props.user.name
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-        children: "-"
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    style: props.userStyle ? {
+      backgroundColor: 'gray'
+    } : null,
+    className: "chat_list",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "chat_people mb-3",
+      onClick: function onClick() {
+        props.selectUser(props.user);
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "chat_img",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+          src: "https://ptetutorials.com/images/user-profile.png",
+          alt: "sunil"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "chat_ib",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
+          children: props.user.name
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          children: "-"
+        })]
       })]
-    })]
+    })
   });
 };
 
@@ -2325,14 +2332,14 @@ var UserList = function UserList(props) {
     className: "inbox_people",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "inbox_chat",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "chat_list",
-        children: props.users.map(function (user) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_User__WEBPACK_IMPORTED_MODULE_1__.default, {
-            selectUser: props.selectUser,
-            user: user
-          }, user.id);
-        })
+      children: props.users.map(function (user) {
+        var _props$selectedUser;
+
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_User__WEBPACK_IMPORTED_MODULE_1__.default, {
+          userStyle: ((_props$selectedUser = props.selectedUser) === null || _props$selectedUser === void 0 ? void 0 : _props$selectedUser.id) == user.id ? true : false,
+          selectUser: props.selectUser,
+          user: user
+        }, user.id);
       })
     })
   });
@@ -9269,7 +9276,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".container{max-width:1170px; margin:auto;}\nimg{ max-width:100%;}\n.inbox_people {\n    background: #f8f8f8 none repeat scroll 0 0;\n    float: left;\n    overflow: hidden;\n    width: 40%; border-right:1px solid #c4c4c4;\n}\n.inbox_msg {\n    border: 1px solid #c4c4c4;\n    clear: both;\n    overflow: hidden;\n}\n.top_spac{ margin: 20px 0 0;}\n\n\n.recent_heading {float: left; width:40%;}\n.srch_bar {\n    display: inline-block;\n    text-align: right;\n    width: 60%;\n}\n.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}\n\n.recent_heading h4 {\n    color: #05728f;\n    font-size: 21px;\n    margin: auto;\n}\n.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}\n.srch_bar .input-group-addon button {\n    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n    border: medium none;\n    padding: 0;\n    color: #707070;\n    font-size: 18px;\n}\n.srch_bar .input-group-addon { margin: 0 0 0 -27px;}\n\n.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}\n.chat_ib h5 span{ font-size:13px; float:right;}\n.chat_ib p{ font-size:14px; color:#989898; margin:auto}\n.chat_img {\n    float: left;\n    width: 11%;\n}\n.chat_ib {\n    float: left;\n    padding: 0 0 0 15px;\n    width: 88%;\n}\n\n.chat_people{ overflow:hidden; clear:both;cursor: pointer}\n.chat_list {\n    border-bottom: 1px solid #c4c4c4;\n    margin: 0;\n    padding: 18px 16px 10px;\n}\n.inbox_chat { height: 600px; overflow-y: scroll;}\n\n.active_chat{ background:#ebebeb;}\n\n.incoming_msg_img {\n    display: inline-block;\n    width: 6%;\n}\n.received_msg {\n    display: inline-block;\n    padding: 0 0 0 10px;\n    vertical-align: top;\n    width: 92%;\n}\n.received_withd_msg p {\n    background: #ebebeb none repeat scroll 0 0;\n    border-radius: 3px;\n    color: #646464;\n    font-size: 14px;\n    margin: 0;\n    padding: 5px 10px 5px 12px;\n    width: 100%;\n}\n.time_date {\n    color: #747474;\n    display: block;\n    font-size: 12px;\n    margin: 0px;\n    margin-bottom:10px;\n}\n.received_withd_msg { width: 57%;}\n.mesgs {\n    float: left;\n    padding: 30px 15px 0 25px;\n    width: 60%;\n}\n\n.sent_msg p {\n    background: #05728f none repeat scroll 0 0;\n    border-radius: 3px;\n    font-size: 14px;\n    margin: 0; color:#fff;\n    padding: 5px 10px 5px 12px;\n    width:100%;\n}\n.outgoing_msg{ overflow:hidden; }\n.sent_msg {\n    float: right;\n    width: 46%;\n}\n.input_msg_write input {\n    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n    border: medium none;\n    color: #4c4c4c;\n    font-size: 15px;\n    min-height: 48px;\n    width: 100%;\n}\n\n.type_msg {border-top: 1px solid #c4c4c4;position: relative;}\n.msg_send_btn {\n    background: #05728f none repeat scroll 0 0;\n    border: medium none;\n    border-radius: 50%;\n    color: #fff;\n    cursor: pointer;\n    font-size: 17px;\n    height: 33px;\n    position: absolute;\n    right: 0;\n    top: 11px;\n    width: 33px;\n}\n.messaging { padding: 0 0 50px 0;}\n.msg_history {\n    height: 516px;\n    overflow-y: auto;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".container{max-width:1170px; margin:auto;}\r\nimg{ max-width:100%;}\r\n.inbox_people {\r\n    background: #f8f8f8 none repeat scroll 0 0;\r\n    float: left;\r\n    overflow: hidden;\r\n    width: 40%; border-right:1px solid #c4c4c4;\r\n}\r\n.inbox_msg {\r\n    border: 1px solid #c4c4c4;\r\n    clear: both;\r\n    overflow: hidden;\r\n}\r\n.top_spac{ margin: 20px 0 0;}\r\n\r\n\r\n.recent_heading {float: left; width:40%;}\r\n.srch_bar {\r\n    display: inline-block;\r\n    text-align: right;\r\n    width: 60%;\r\n}\r\n.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}\r\n\r\n.recent_heading h4 {\r\n    color: #05728f;\r\n    font-size: 21px;\r\n    margin: auto;\r\n}\r\n.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}\r\n.srch_bar .input-group-addon button {\r\n    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\r\n    border: medium none;\r\n    padding: 0;\r\n    color: #707070;\r\n    font-size: 18px;\r\n}\r\n.srch_bar .input-group-addon { margin: 0 0 0 -27px;}\r\n\r\n.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}\r\n.chat_ib h5 span{ font-size:13px; float:right;}\r\n.chat_ib p{ font-size:14px; color:#989898; margin:auto}\r\n.chat_img {\r\n    float: left;\r\n    width: 11%;\r\n}\r\n.chat_ib {\r\n    float: left;\r\n    padding: 0 0 0 15px;\r\n    width: 88%;\r\n}\r\n\r\n.chat_people{ overflow:hidden; clear:both;cursor: pointer}\r\n.chat_list {\r\n    border-bottom: 1px solid #c4c4c4;\r\n    margin: 0;\r\n    padding: 18px 16px 10px;\r\n}\r\n.inbox_chat { height: 600px; overflow-y: scroll;}\r\n\r\n.active_chat{ background:#ebebeb;}\r\n\r\n.incoming_msg_img {\r\n    display: inline-block;\r\n    width: 6%;\r\n}\r\n.received_msg {\r\n    display: inline-block;\r\n    padding: 0 0 0 10px;\r\n    vertical-align: top;\r\n    width: 92%;\r\n}\r\n.received_withd_msg p {\r\n    background: #ebebeb none repeat scroll 0 0;\r\n    border-radius: 3px;\r\n    color: #646464;\r\n    font-size: 14px;\r\n    margin: 0;\r\n    padding: 5px 10px 5px 12px;\r\n    width: 100%;\r\n}\r\n.time_date {\r\n    color: #747474;\r\n    display: block;\r\n    font-size: 12px;\r\n    margin: 0px;\r\n    margin-bottom:10px;\r\n}\r\n.received_withd_msg { width: 57%;}\r\n.mesgs {\r\n    float: left;\r\n    padding: 30px 15px 0 25px;\r\n    width: 60%;\r\n}\r\n\r\n.sent_msg p {\r\n    background: #05728f none repeat scroll 0 0;\r\n    border-radius: 3px;\r\n    font-size: 14px;\r\n    margin: 0; color:#fff;\r\n    padding: 5px 10px 5px 12px;\r\n    width:100%;\r\n}\r\n.outgoing_msg{ overflow:hidden; }\r\n.sent_msg {\r\n    float: right;\r\n    width: 46%;\r\n}\r\n.input_msg_write input {\r\n    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\r\n    border: medium none;\r\n    color: #4c4c4c;\r\n    font-size: 15px;\r\n    min-height: 48px;\r\n    width: 100%;\r\n}\r\n\r\n.type_msg {border-top: 1px solid #c4c4c4;position: relative;}\r\n.msg_send_btn {\r\n    background: #05728f none repeat scroll 0 0;\r\n    border: medium none;\r\n    border-radius: 50%;\r\n    color: #fff;\r\n    cursor: pointer;\r\n    font-size: 17px;\r\n    height: 33px;\r\n    position: absolute;\r\n    right: 0;\r\n    top: 11px;\r\n    width: 33px;\r\n}\r\n.messaging { padding: 0 0 50px 0;}\r\n.msg_history {\r\n    height: 516px;\r\n    overflow-y: auto;\r\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

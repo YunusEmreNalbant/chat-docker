@@ -34,7 +34,7 @@ function Chat() {
         <div className={"container-fluid"} style={{marginTop: 10}}>
             <div className="messaging">
                 <div className="inbox_msg">
-                    <UserList selectUser={changeSelectedUser} users={users}/>
+                    <UserList selectedUser={selectedUser} selectUser={changeSelectedUser} users={users}/>
                     <ChatPanel selectedUser={selectedUser} messages={messages}/>
                 </div>
             </div>
