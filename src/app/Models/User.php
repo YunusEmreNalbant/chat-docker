@@ -31,16 +31,14 @@ class User extends Authenticatable
     ];
 
 
-
-
     public function user_invitations()
     {
-        return $this->belongsToMany(User::class, 'friends', 'inviter_id', 'receiver_id');
+        return $this->belongsToMany(User::class, 'friends', 'inviter_id', 'receiver_id')->withPivot('channel_name');
     }
 
     public function user_recevived_invitations()
     {
-        return $this->belongsToMany(User::class, 'friends', 'receiver_id', 'inviter_id');
+        return $this->belongsToMany(User::class, 'friends', 'receiver_id', 'inviter_id')->withPivot('channel_name');
     }
 
     public function getFriends()

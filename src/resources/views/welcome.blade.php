@@ -19,6 +19,9 @@
 </div>
 <!-- Optional JavaScript; choose one of the two! -->
 
+<script>
+    window.user_id = {{auth()->id()}}
+</script>
 <script src="js/app.js"></script>
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"

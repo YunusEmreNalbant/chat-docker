@@ -2062,39 +2062,112 @@ function Chat() {
       messages = _useState6[0],
       setMessages = _useState6[1];
 
-  var changeSelectedUser = function changeSelectedUser(user) {
-    selectedUser && selectedUser.id !== user.id ? setSelectedUser(user) : null;
-    !selectedUser ? setSelectedUser(user) : null;
-  };
+  var changeSelectedUser = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(user) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return setSelectedUser(user);
+
+            case 2:
+              _context.next = 4;
+              return getMessages();
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function changeSelectedUser(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  function sendMessage(_x2) {
+    return _sendMessage.apply(this, arguments);
+  }
+
+  function _sendMessage() {
+    _sendMessage = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(message) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              window.axios.post(window.staticUrl + 'send-messages', {
+                channel_name: selectedUser && selectedUser.channel_name,
+                message: message
+              }).then(function (res) {
+                return console.log(res);
+              });
+
+            case 1:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+    return _sendMessage.apply(this, arguments);
+  }
+
+  function getMessages() {
+    return _getMessages.apply(this, arguments);
+  }
+
+  function _getMessages() {
+    _getMessages = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              window.axios.post(window.staticUrl + 'get-messages', {
+                channel_name: selectedUser && selectedUser.channel_name
+              }).then(function (res) {
+                setMessages(res.data);
+              });
+
+            case 1:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+    return _getMessages.apply(this, arguments);
+  }
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     window.Echo.channel('laravel_database_test_channel').listen('.test', function (e) {
       console.log(e);
     });
     window.axios.get(window.staticUrl + 'friends').then( /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(res) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(res) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context.next = 2;
+                _context2.next = 2;
                 return setUsers(res.data.data);
 
               case 2:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }));
 
-      return function (_x) {
-        return _ref.apply(this, arguments);
+      return function (_x3) {
+        return _ref2.apply(this, arguments);
       };
     }())["catch"](function (err) {
       console.log(err);
     });
-    console.log(selectedUser);
   }, [selectedUser]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
     className: "container-fluid",
@@ -2110,6 +2183,7 @@ function Chat() {
           selectUser: changeSelectedUser,
           users: users
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ChatComponent_ChatPanel__WEBPACK_IMPORTED_MODULE_4__.default, {
+          sendMessage: sendMessage,
           selectedUser: selectedUser,
           messages: messages
         })]
@@ -2147,36 +2221,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ChatPanel = function ChatPanel(props) {
+  var _props$messages;
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "mesgs",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "msg_history",
-      children: props.selectedUser ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
-          from: 'other',
-          message: 'test',
-          time: '11.01.2021'
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
-          from: 'me',
-          message: 'ben gönderdim',
-          time: '11:01 AM    |    June 9'
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
-          from: 'me',
-          message: 'ben gönderdim',
-          time: '11:01 AM    |    June 9'
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
-          from: 'me',
-          message: 'ben gönderdim',
-          time: '11:01 AM    |    June 9'
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
-          from: 'me',
-          message: 'ben gönderdim',
-          time: '11:01 AM    |    June 9'
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
-          from: 'other',
-          message: 'test',
-          time: '11.01.2021'
-        })]
+      children: props.selectedUser ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+        children: (_props$messages = props.messages) === null || _props$messages === void 0 ? void 0 : _props$messages.map(function (item, index) {
+          if (item.from.id == window.user_id) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
+              from: 'me',
+              message: item.message,
+              time: '11:01 AM    |    June 9'
+            }, index);
+          } else {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
+              from: 'other',
+              message: item.message,
+              time: '11.01.2021'
+            }, index);
+          }
+        })
       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
         children: "Hen\xFCz Bir Ki\u015Fi Se\xE7mediniz!"
       })
@@ -2189,6 +2255,9 @@ var ChatPanel = function ChatPanel(props) {
           className: "write_msg",
           placeholder: "Type a message"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+          onClick: function onClick(event) {
+            props.sendMessage(event.target.value);
+          },
           className: "msg_send_btn",
           type: "button",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {

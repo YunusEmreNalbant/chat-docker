@@ -18,6 +18,7 @@ class UserWithoutFriendResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            "channel_name"=>$this->pivot->channel_name
         ];
     }
 }

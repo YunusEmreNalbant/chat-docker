@@ -16,15 +16,17 @@ class NewMessage implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $channel_name;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($message, $channel_name)
     {
         $this->message = $message;
+        $this->channel_name = $channel_name;
     }
 
     /**
@@ -34,7 +36,7 @@ class NewMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['test_channel'];
+        return [$this->channel_name];
     }
 
     public function broadcastAs()
@@ -46,8 +48,8 @@ class NewMessage implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            "message" => $this->message->text,
-            "from" => "Ahmet"
+            "message" => $this->message,
+            "from" => Auth::user()->name
         ];
     }
 }
