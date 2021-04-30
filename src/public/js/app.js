@@ -2022,6 +2022,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -2057,138 +2065,109 @@ function Chat() {
       selectedUser = _useState4[0],
       setSelectedUser = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState6 = _slicedToArray(_useState5, 2),
       messages = _useState6[0],
       setMessages = _useState6[1];
 
-  var changeSelectedUser = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(user) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return setSelectedUser(user);
+  function getMessages(selectedUser) {
+    if (selectedUser) {
+      window.axios.post(window.staticUrl + 'get-messages', {
+        channel_name: selectedUser && selectedUser.channel_name
+      }).then(function (res) {
+        setMessages(res.data);
+      });
+    }
+  }
 
-            case 2:
-              _context.next = 4;
-              return getMessages();
-
-            case 4:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function changeSelectedUser(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  function sendMessage(_x2) {
+  function sendMessage(_x) {
     return _sendMessage.apply(this, arguments);
   }
 
   function _sendMessage() {
-    _sendMessage = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(message) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+    _sendMessage = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(message) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               window.axios.post(window.staticUrl + 'send-messages', {
                 channel_name: selectedUser && selectedUser.channel_name,
                 message: message
               }).then(function (res) {
                 return console.log(res);
+              })["catch"](function (err) {
+                console.log(err);
               });
 
             case 1:
             case "end":
-              return _context3.stop();
+              return _context2.stop();
           }
         }
-      }, _callee3);
+      }, _callee2);
     }));
     return _sendMessage.apply(this, arguments);
   }
 
-  function getMessages() {
-    return _getMessages.apply(this, arguments);
-  }
-
-  function _getMessages() {
-    _getMessages = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              window.axios.post(window.staticUrl + 'get-messages', {
-                channel_name: selectedUser && selectedUser.channel_name
-              }).then(function (res) {
-                setMessages(res.data);
-              });
-
-            case 1:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4);
-    }));
-    return _getMessages.apply(this, arguments);
+  function updateMessages(message) {
+    setMessages([].concat(_toConsumableArray(messages), [message]));
   }
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    window.Echo.channel('laravel_database_test_channel').listen('.test', function (e) {
-      console.log(e);
-    });
+    getMessages(selectedUser);
+  }, [selectedUser]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     window.axios.get(window.staticUrl + 'friends').then( /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(res) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(res) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context.prev = _context.next) {
               case 0:
-                _context2.next = 2;
+                _context.next = 2;
                 return setUsers(res.data.data);
 
               case 2:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2);
+        }, _callee);
       }));
 
-      return function (_x3) {
-        return _ref2.apply(this, arguments);
+      return function (_x2) {
+        return _ref.apply(this, arguments);
       };
     }())["catch"](function (err) {
       console.log(err);
     });
-  }, [selectedUser]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: "container-fluid",
     style: {
       marginTop: 10
     },
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "messaging",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "inbox_msg",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ChatComponent_UserList__WEBPACK_IMPORTED_MODULE_5__.default, {
           selectedUser: selectedUser,
-          selectUser: changeSelectedUser,
+          selectUser: setSelectedUser,
           users: users
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ChatComponent_ChatPanel__WEBPACK_IMPORTED_MODULE_4__.default, {
+          updateMessages: updateMessages,
           sendMessage: sendMessage,
           selectedUser: selectedUser,
           messages: messages
         })]
       })
-    })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("ul", {
+      children: messages.map(function (item) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
+          children: item.message
+        });
+      })
+    })]
   });
 }
 
@@ -2223,22 +2202,41 @@ __webpack_require__.r(__webpack_exports__);
 var ChatPanel = function ChatPanel(props) {
   var _props$messages;
 
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (props.selectedUser) {
+      window.Echo.channel('laravel_database_' + props.selectedUser.channel_name).listen('.test', function (e) {
+        props.updateMessages(e);
+      });
+    }
+  }, [props.selectedUser]);
+
+  function handleKeyPress(event) {
+    if (props.selectedUser) {
+      if (event.key === 'Enter') {
+        props.sendMessage(event.target.value);
+        event.target.value = '';
+      }
+    }
+  }
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "mesgs",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "msg_history",
       children: props.selectedUser ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
         children: (_props$messages = props.messages) === null || _props$messages === void 0 ? void 0 : _props$messages.map(function (item, index) {
-          if (item.from.id == window.user_id) {
+          if (JSON.parse(item).from == window.user_id) {
+            console.log(JSON.parse(item));
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
               from: 'me',
-              message: item.message,
+              message: JSON.parse(item).message,
               time: '11:01 AM    |    June 9'
             }, index);
           } else {
+            console.log();
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
               from: 'other',
-              message: item.message,
+              message: JSON.parse(item).message,
               time: '11.01.2021'
             }, index);
           }
@@ -2246,27 +2244,20 @@ var ChatPanel = function ChatPanel(props) {
       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
         children: "Hen\xFCz Bir Ki\u015Fi Se\xE7mediniz!"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    }), props.selectedUser ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "type_msg",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "input_msg_write",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
           type: "text",
+          onKeyPress: function onKeyPress(event) {
+            return handleKeyPress(event);
+          },
           className: "write_msg",
           placeholder: "Type a message"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-          onClick: function onClick(event) {
-            props.sendMessage(event.target.value);
-          },
-          className: "msg_send_btn",
-          type: "button",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-            className: "fa fa-paper-plane-o",
-            "aria-hidden": "true"
-          })
-        })]
+        })
       })
-    })]
+    }) : null]
   });
 };
 
@@ -9345,7 +9336,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".container{max-width:1170px; margin:auto;}\r\nimg{ max-width:100%;}\r\n.inbox_people {\r\n    background: #f8f8f8 none repeat scroll 0 0;\r\n    float: left;\r\n    overflow: hidden;\r\n    width: 40%; border-right:1px solid #c4c4c4;\r\n}\r\n.inbox_msg {\r\n    border: 1px solid #c4c4c4;\r\n    clear: both;\r\n    overflow: hidden;\r\n}\r\n.top_spac{ margin: 20px 0 0;}\r\n\r\n\r\n.recent_heading {float: left; width:40%;}\r\n.srch_bar {\r\n    display: inline-block;\r\n    text-align: right;\r\n    width: 60%;\r\n}\r\n.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}\r\n\r\n.recent_heading h4 {\r\n    color: #05728f;\r\n    font-size: 21px;\r\n    margin: auto;\r\n}\r\n.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}\r\n.srch_bar .input-group-addon button {\r\n    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\r\n    border: medium none;\r\n    padding: 0;\r\n    color: #707070;\r\n    font-size: 18px;\r\n}\r\n.srch_bar .input-group-addon { margin: 0 0 0 -27px;}\r\n\r\n.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}\r\n.chat_ib h5 span{ font-size:13px; float:right;}\r\n.chat_ib p{ font-size:14px; color:#989898; margin:auto}\r\n.chat_img {\r\n    float: left;\r\n    width: 11%;\r\n}\r\n.chat_ib {\r\n    float: left;\r\n    padding: 0 0 0 15px;\r\n    width: 88%;\r\n}\r\n\r\n.chat_people{ overflow:hidden; clear:both;cursor: pointer}\r\n.chat_list {\r\n    border-bottom: 1px solid #c4c4c4;\r\n    margin: 0;\r\n    padding: 18px 16px 10px;\r\n}\r\n.inbox_chat { height: 600px; overflow-y: scroll;}\r\n\r\n.active_chat{ background:#ebebeb;}\r\n\r\n.incoming_msg_img {\r\n    display: inline-block;\r\n    width: 6%;\r\n}\r\n.received_msg {\r\n    display: inline-block;\r\n    padding: 0 0 0 10px;\r\n    vertical-align: top;\r\n    width: 92%;\r\n}\r\n.received_withd_msg p {\r\n    background: #ebebeb none repeat scroll 0 0;\r\n    border-radius: 3px;\r\n    color: #646464;\r\n    font-size: 14px;\r\n    margin: 0;\r\n    padding: 5px 10px 5px 12px;\r\n    width: 100%;\r\n}\r\n.time_date {\r\n    color: #747474;\r\n    display: block;\r\n    font-size: 12px;\r\n    margin: 0px;\r\n    margin-bottom:10px;\r\n}\r\n.received_withd_msg { width: 57%;}\r\n.mesgs {\r\n    float: left;\r\n    padding: 30px 15px 0 25px;\r\n    width: 60%;\r\n}\r\n\r\n.sent_msg p {\r\n    background: #05728f none repeat scroll 0 0;\r\n    border-radius: 3px;\r\n    font-size: 14px;\r\n    margin: 0; color:#fff;\r\n    padding: 5px 10px 5px 12px;\r\n    width:100%;\r\n}\r\n.outgoing_msg{ overflow:hidden; }\r\n.sent_msg {\r\n    float: right;\r\n    width: 46%;\r\n}\r\n.input_msg_write input {\r\n    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\r\n    border: medium none;\r\n    color: #4c4c4c;\r\n    font-size: 15px;\r\n    min-height: 48px;\r\n    width: 100%;\r\n}\r\n\r\n.type_msg {border-top: 1px solid #c4c4c4;position: relative;}\r\n.msg_send_btn {\r\n    background: #05728f none repeat scroll 0 0;\r\n    border: medium none;\r\n    border-radius: 50%;\r\n    color: #fff;\r\n    cursor: pointer;\r\n    font-size: 17px;\r\n    height: 33px;\r\n    position: absolute;\r\n    right: 0;\r\n    top: 11px;\r\n    width: 33px;\r\n}\r\n.messaging { padding: 0 0 50px 0;}\r\n.msg_history {\r\n    height: 516px;\r\n    overflow-y: auto;\r\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".container{max-width:1170px; margin:auto;}\nimg{ max-width:100%;}\n.inbox_people {\n    background: #f8f8f8 none repeat scroll 0 0;\n    float: left;\n    overflow: hidden;\n    width: 40%; border-right:1px solid #c4c4c4;\n}\n.inbox_msg {\n    border: 1px solid #c4c4c4;\n    clear: both;\n    overflow: hidden;\n}\n.top_spac{ margin: 20px 0 0;}\n\n\n.recent_heading {float: left; width:40%;}\n.srch_bar {\n    display: inline-block;\n    text-align: right;\n    width: 60%;\n}\n.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}\n\n.recent_heading h4 {\n    color: #05728f;\n    font-size: 21px;\n    margin: auto;\n}\n.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}\n.srch_bar .input-group-addon button {\n    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n    border: medium none;\n    padding: 0;\n    color: #707070;\n    font-size: 18px;\n}\n.srch_bar .input-group-addon { margin: 0 0 0 -27px;}\n\n.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}\n.chat_ib h5 span{ font-size:13px; float:right;}\n.chat_ib p{ font-size:14px; color:#989898; margin:auto}\n.chat_img {\n    float: left;\n    width: 11%;\n}\n.chat_ib {\n    float: left;\n    padding: 0 0 0 15px;\n    width: 88%;\n}\n\n.chat_people{ overflow:hidden; clear:both;cursor: pointer}\n.chat_list {\n    border-bottom: 1px solid #c4c4c4;\n    margin: 0;\n    padding: 18px 16px 10px;\n}\n.inbox_chat { height: 600px; overflow-y: scroll;}\n\n.active_chat{ background:#ebebeb;}\n\n.incoming_msg_img {\n    display: inline-block;\n    width: 6%;\n}\n.received_msg {\n    display: inline-block;\n    padding: 0 0 0 10px;\n    vertical-align: top;\n    width: 92%;\n}\n.received_withd_msg p {\n    background: #ebebeb none repeat scroll 0 0;\n    border-radius: 3px;\n    color: #646464;\n    font-size: 14px;\n    margin: 0;\n    padding: 5px 10px 5px 12px;\n    width: 100%;\n}\n.time_date {\n    color: #747474;\n    display: block;\n    font-size: 12px;\n    margin: 0px;\n    margin-bottom:10px;\n}\n.received_withd_msg { width: 57%;}\n.mesgs {\n    float: left;\n    padding: 30px 15px 0 25px;\n    width: 60%;\n}\n\n.sent_msg p {\n    background: #05728f none repeat scroll 0 0;\n    border-radius: 3px;\n    font-size: 14px;\n    margin: 0; color:#fff;\n    padding: 5px 10px 5px 12px;\n    width:100%;\n}\n.outgoing_msg{ overflow:hidden; }\n.sent_msg {\n    float: right;\n    width: 46%;\n}\n.input_msg_write input {\n    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n    border: medium none;\n    color: #4c4c4c;\n    font-size: 15px;\n    min-height: 48px;\n    width: 100%;\n}\n\n.type_msg {border-top: 1px solid #c4c4c4;position: relative;}\n.msg_send_btn {\n    background: #05728f none repeat scroll 0 0;\n    border: medium none;\n    border-radius: 50%;\n    color: #fff;\n    cursor: pointer;\n    font-size: 17px;\n    height: 33px;\n    position: absolute;\n    right: 0;\n    top: 11px;\n    width: 33px;\n}\n.messaging { padding: 0 0 50px 0;}\n.msg_history {\n    height: 516px;\n    overflow-y: auto;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

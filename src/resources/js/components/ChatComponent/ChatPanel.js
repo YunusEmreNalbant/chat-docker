@@ -1,8 +1,28 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import Message from "./Message";
 
 const ChatPanel = (props) => {
 
+    useEffect(() => {
+        if (props.selectedUser) {
+            window.Echo.channel('laravel_database_' + props.selectedUser.channel_name)
+                .listen('.test', e => {
+                    props.updateMessages(e);
+                });
+
+        }
+    }, [props.selectedUser])
+
+
+
+    function handleKeyPress(event) {
+        if (props.selectedUser) {
+            if (event.key === 'Enter') {
+                props.sendMessage(event.target.value);
+                event.target.value = '';
+            }
+        }
+    }
 
     return (
         <div className="mesgs">
@@ -11,11 +31,14 @@ const ChatPanel = (props) => {
                     props.selectedUser ? (
                             <>
                                 {props.messages?.map((item, index) => {
-                                    if (item.from.id == window.user_id) {
-                                        return <Message key={index} from={'me'} message={item.message}
+
+                                    if (JSON.parse(item).from == window.user_id) {
+                                        console.log(JSON.parse(item));
+                                        return <Message key={index} from={'me'} message={JSON.parse(item).message}
                                                         time={'11:01 AM    |    June 9'}/>
                                     } else {
-                                        return <Message key={index} from={'other'} message={item.message}
+                                        console.log()
+                                        return <Message key={index} from={'other'} message={JSON.parse(item).message}
                                                         time={'11.01.2021'}/>
                                     }
                                 })}
@@ -25,15 +48,16 @@ const ChatPanel = (props) => {
                 }
 
             </div>
-            <div className="type_msg">
-                <div className="input_msg_write">
-                    <input type="text" className="write_msg" placeholder="Type a message"/>
-                    <button  onClick={(event) =>{ props.sendMessage(event.target.value); }} className="msg_send_btn"
-                            type="button"><i
-                        className="fa fa-paper-plane-o"
-                        aria-hidden="true"></i></button>
-                </div>
-            </div>
+            {
+                props.selectedUser ? <div className="type_msg">
+                    <div className="input_msg_write">
+                        <input type="text" onKeyPress={(event) => handleKeyPress(event)} className="write_msg"
+                               placeholder="Type a message"/>
+
+                    </div>
+                </div> : null
+            }
+
 
         </div>
     );

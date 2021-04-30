@@ -49,7 +49,7 @@ class NewMessage implements ShouldBroadcast
     {
         return [
             "message" => $this->message,
-            "from" => Auth::user()->name
+            "from" => Auth::user()->id
         ];
     }
 }

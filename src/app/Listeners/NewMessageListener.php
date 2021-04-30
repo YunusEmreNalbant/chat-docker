@@ -23,8 +23,7 @@ class NewMessageListener
         $messageInfo = new \stdClass();
         $messageInfo->from = Auth::user()->id;
         $messageInfo->message = $newMessage->message;
-
-        Redis::rpush($newMessage->channel_name, $messageInfo);
+        Redis::rpush($newMessage->channel_name, json_encode($messageInfo));
         //return Redis::lrange('messages', 0, -1);
 
     }
