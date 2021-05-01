@@ -9,16 +9,35 @@ class Chat extends React.Component {
         super(props);
         this.state = {users: [], selectedUser: null, messages: []};
         this.selectUser = this.selectUser.bind(this);
+        this.whisper = this.whisper.bind(this);
     }
 
     componentDidUpdate(prevProp, prevState) {
         if (prevState.selectedUser !== this.state.selectedUser) {
-            window.Echo.channel('laravel_database_' + this.state.selectedUser.channel_name).listen('.test', (e) => {
-                var messages1=this.state.messages;
+            this.setState({messages: []});
+            if (prevState.selectedUser && prevState.selectedUser.channel_name) {
+                window.Echo.private('laravel_database_App.Models.Chat.' + prevState.selectedUser.channel_name).stopListening('.test');
+
+            }
+            window.Echo.private('laravel_database_App.Models.Chat.' + this.state.selectedUser.channel_name).listen('.test', (e) => {
+                var messages1 = this.state.messages;
                 messages1.push(JSON.stringify(e));
-                this.setState({messages:messages1});
+                this.setState({messages: messages1}, () => {
+                    this.scrollToBottom();
+                });
+            }).listenForWhisper('typing', (e) => {
+                e.typing ? console.log("yazıyor") : console.log("yazmıyor")
             })
+
+            setTimeout( () => {
+                console.log("yazıyor")
+            }, 1000)
         }
+    }
+
+    scrollToBottom() {
+        let objDiv = document.getElementById("msg_history");
+        objDiv.scrollTop = objDiv.scrollHeight;
     }
 
     componentDidMount() {
@@ -32,16 +51,31 @@ class Chat extends React.Component {
 
 
     selectUser(user) {
+
         this.setState({selectedUser: user}, () => {
             this.getMessages(this.state.selectedUser)
         });
+    }
+
+    whisper(channel_name) {
+
+        let channel = window.Echo.private('laravel_database_App.Models.Chat.' + channel_name)
+
+        setTimeout(() => {
+            channel.whisper('typing', {
+                user: window.user_id,
+                typing: true
+            })
+        }, 300)
     }
 
     getMessages(selectedUser) {
         if (selectedUser) {
             window.axios.post(window.staticUrl + 'get-messages',
                 {channel_name: this.state.selectedUser && this.state.selectedUser.channel_name}).then(res => {
-                this.setState({messages: res.data});
+                this.setState({messages: res.data}, () => {
+                    this.scrollToBottom()
+                });
             })
         }
     }
@@ -67,7 +101,7 @@ class Chat extends React.Component {
                     <div className="inbox_msg">
                         <UserList selectedUser={this.state.selectedUser} selectUser={this.selectUser}
                                   users={this.state.users}/>
-                        <ChatPanel updateMessages={this.updateMessages} sendMessage={this.sendMessage}
+                        <ChatPanel whisper={this.whisper} updateMessages={this.updateMessages} sendMessage={this.sendMessage}
                                    selectedUser={this.state.selectedUser}
                                    messages={this.state.messages}/>
                     </div>

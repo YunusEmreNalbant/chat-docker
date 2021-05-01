@@ -7,20 +7,27 @@ class ChatPanel extends Component {
         this.state = {
             channel: null
         }
+        const messagesEndRef = React.createRef()
+
     }
+
 
     handleKeyPress(event) {
         if (this.props.selectedUser && this.props.selectedUser.channel_name) {
             if (event.key === 'Enter') {
                 this.props.sendMessage(this.props.selectedUser, event.target.value);
                 event.target.value = '';
+            } else {
+                this.props.whisper(this.props.selectedUser.channel_name);
             }
+
         }
     }
 
+
     render() {
         return (<div className="mesgs">
-            <div className="msg_history">
+            <div id={"msg_history"} className="msg_history">
                 {
                     this.props.selectedUser ? (
                             <>
@@ -42,8 +49,10 @@ class ChatPanel extends Component {
             </div>
             {
                 this.props.selectedUser ? <div className="type_msg">
+                    <div id={"typing"}></div>
                     <div className="input_msg_write">
-                        <input type="text" onKeyPress={(event) => this.handleKeyPress(event)} className="write_msg"
+                        <input id={"text"} type="text" onKeyPress={(event) => this.handleKeyPress(event)}
+                               className="write_msg"
                                placeholder="Type a message"/>
 
                     </div>

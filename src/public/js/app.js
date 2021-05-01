@@ -2073,6 +2073,7 @@ var Chat = /*#__PURE__*/function (_React$Component) {
       messages: []
     };
     _this.selectUser = _this.selectUser.bind(_assertThisInitialized(_this));
+    _this.whisper = _this.whisper.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2082,15 +2083,36 @@ var Chat = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       if (prevState.selectedUser !== this.state.selectedUser) {
-        window.Echo.channel('laravel_database_' + this.state.selectedUser.channel_name).listen('.test', function (e) {
+        this.setState({
+          messages: []
+        });
+
+        if (prevState.selectedUser && prevState.selectedUser.channel_name) {
+          window.Echo["private"]('laravel_database_App.Models.Chat.' + prevState.selectedUser.channel_name).stopListening('.test');
+        }
+
+        window.Echo["private"]('laravel_database_App.Models.Chat.' + this.state.selectedUser.channel_name).listen('.test', function (e) {
           var messages1 = _this2.state.messages;
           messages1.push(JSON.stringify(e));
 
           _this2.setState({
             messages: messages1
+          }, function () {
+            _this2.scrollToBottom();
           });
+        }).listenForWhisper('typing', function (e) {
+          e.typing ? console.log("yazıyor") : console.log("yazmıyor");
         });
+        setTimeout(function () {
+          console.log("yazıyor");
+        }, 1000);
       }
+    }
+  }, {
+    key: "scrollToBottom",
+    value: function scrollToBottom() {
+      var objDiv = document.getElementById("msg_history");
+      objDiv.scrollTop = objDiv.scrollHeight;
     }
   }, {
     key: "componentDidMount",
@@ -2135,6 +2157,17 @@ var Chat = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "whisper",
+    value: function whisper(channel_name) {
+      var channel = window.Echo["private"]('laravel_database_App.Models.Chat.' + channel_name);
+      setTimeout(function () {
+        channel.whisper('typing', {
+          user: window.user_id,
+          typing: true
+        });
+      }, 300);
+    }
+  }, {
     key: "getMessages",
     value: function getMessages(selectedUser) {
       var _this5 = this;
@@ -2145,6 +2178,8 @@ var Chat = /*#__PURE__*/function (_React$Component) {
         }).then(function (res) {
           _this5.setState({
             messages: res.data
+          }, function () {
+            _this5.scrollToBottom();
           });
         });
       }
@@ -2183,6 +2218,7 @@ var Chat = /*#__PURE__*/function (_React$Component) {
               selectUser: this.selectUser,
               users: this.state.users
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ChatComponent_ChatPanel__WEBPACK_IMPORTED_MODULE_2__.default, {
+              whisper: this.whisper,
               updateMessages: this.updateMessages,
               sendMessage: this.sendMessage,
               selectedUser: this.state.selectedUser,
@@ -2261,6 +2297,7 @@ var ChatPanel = /*#__PURE__*/function (_Component) {
     _this.state = {
       channel: null
     };
+    var messagesEndRef = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
     return _this;
   }
 
@@ -2271,6 +2308,8 @@ var ChatPanel = /*#__PURE__*/function (_Component) {
         if (event.key === 'Enter') {
           this.props.sendMessage(this.props.selectedUser, event.target.value);
           event.target.value = '';
+        } else {
+          this.props.whisper(this.props.selectedUser.channel_name);
         }
       }
     }
@@ -2283,6 +2322,7 @@ var ChatPanel = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "mesgs",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          id: "msg_history",
           className: "msg_history",
           children: this.props.selectedUser ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
             children: (_this$props$messages = this.props.messages) === null || _this$props$messages === void 0 ? void 0 : _this$props$messages.map(function (item, index) {
@@ -2303,11 +2343,14 @@ var ChatPanel = /*#__PURE__*/function (_Component) {
           }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
             children: "Hen\xFCz Bir Ki\u015Fi Se\xE7mediniz!"
           })
-        }), this.props.selectedUser ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        }), this.props.selectedUser ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
           className: "type_msg",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+            id: "typing"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
             className: "input_msg_write",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+              id: "text",
               type: "text",
               onKeyPress: function onKeyPress(event) {
                 return _this2.handleKeyPress(event);
@@ -2315,7 +2358,7 @@ var ChatPanel = /*#__PURE__*/function (_Component) {
               className: "write_msg",
               placeholder: "Type a message"
             })
-          })
+          })]
         }) : null]
       });
     }
@@ -9399,7 +9442,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".container{max-width:1170px; margin:auto;}\nimg{ max-width:100%;}\n.inbox_people {\n    background: #f8f8f8 none repeat scroll 0 0;\n    float: left;\n    overflow: hidden;\n    width: 40%; border-right:1px solid #c4c4c4;\n}\n.inbox_msg {\n    border: 1px solid #c4c4c4;\n    clear: both;\n    overflow: hidden;\n}\n.top_spac{ margin: 20px 0 0;}\n\n\n.recent_heading {float: left; width:40%;}\n.srch_bar {\n    display: inline-block;\n    text-align: right;\n    width: 60%;\n}\n.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}\n\n.recent_heading h4 {\n    color: #05728f;\n    font-size: 21px;\n    margin: auto;\n}\n.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}\n.srch_bar .input-group-addon button {\n    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n    border: medium none;\n    padding: 0;\n    color: #707070;\n    font-size: 18px;\n}\n.srch_bar .input-group-addon { margin: 0 0 0 -27px;}\n\n.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}\n.chat_ib h5 span{ font-size:13px; float:right;}\n.chat_ib p{ font-size:14px; color:#989898; margin:auto}\n.chat_img {\n    float: left;\n    width: 11%;\n}\n.chat_ib {\n    float: left;\n    padding: 0 0 0 15px;\n    width: 88%;\n}\n\n.chat_people{ overflow:hidden; clear:both;cursor: pointer}\n.chat_list {\n    border-bottom: 1px solid #c4c4c4;\n    margin: 0;\n    padding: 18px 16px 10px;\n}\n.inbox_chat { height: 600px; overflow-y: scroll;}\n\n.active_chat{ background:#ebebeb;}\n\n.incoming_msg_img {\n    display: inline-block;\n    width: 6%;\n}\n.received_msg {\n    display: inline-block;\n    padding: 0 0 0 10px;\n    vertical-align: top;\n    width: 92%;\n}\n.received_withd_msg p {\n    background: #ebebeb none repeat scroll 0 0;\n    border-radius: 3px;\n    color: #646464;\n    font-size: 14px;\n    margin: 0;\n    padding: 5px 10px 5px 12px;\n    width: 100%;\n}\n.time_date {\n    color: #747474;\n    display: block;\n    font-size: 12px;\n    margin: 0px;\n    margin-bottom:10px;\n}\n.received_withd_msg { width: 57%;}\n.mesgs {\n    float: left;\n    padding: 30px 15px 0 25px;\n    width: 60%;\n}\n\n.sent_msg p {\n    background: #05728f none repeat scroll 0 0;\n    border-radius: 3px;\n    font-size: 14px;\n    margin: 0; color:#fff;\n    padding: 5px 10px 5px 12px;\n    width:100%;\n}\n.outgoing_msg{ overflow:hidden; }\n.sent_msg {\n    float: right;\n    width: 46%;\n}\n.input_msg_write input {\n    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n    border: medium none;\n    color: #4c4c4c;\n    font-size: 15px;\n    min-height: 48px;\n    width: 100%;\n}\n\n.type_msg {border-top: 1px solid #c4c4c4;position: relative;}\n.msg_send_btn {\n    background: #05728f none repeat scroll 0 0;\n    border: medium none;\n    border-radius: 50%;\n    color: #fff;\n    cursor: pointer;\n    font-size: 17px;\n    height: 33px;\n    position: absolute;\n    right: 0;\n    top: 11px;\n    width: 33px;\n}\n.messaging { padding: 0 0 50px 0;}\n.msg_history {\n    height: 516px;\n    overflow-y: auto;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".container {\n    max-width: 1170px;\n    margin: auto;\n}\n\nimg {\n    max-width: 100%;\n}\n\n.inbox_people {\n    background: #f8f8f8 none repeat scroll 0 0;\n    float: left;\n    overflow: hidden;\n    width: 40%;\n    border-right: 1px solid #c4c4c4;\n}\n\n.inbox_msg {\n    border: 1px solid #c4c4c4;\n    clear: both;\n    overflow: hidden;\n}\n\n.top_spac {\n    margin: 20px 0 0;\n}\n\n\n.recent_heading {\n    float: left;\n    width: 40%;\n}\n\n.srch_bar {\n    display: inline-block;\n    text-align: right;\n    width: 60%;\n}\n\n.headind_srch {\n    padding: 10px 29px 10px 20px;\n    overflow: hidden;\n    border-bottom: 1px solid #c4c4c4;\n}\n\n.recent_heading h4 {\n    color: #05728f;\n    font-size: 21px;\n    margin: auto;\n}\n\n.srch_bar input {\n    border: 1px solid #cdcdcd;\n    border-width: 0 0 1px 0;\n    width: 80%;\n    padding: 2px 0 4px 6px;\n    background: none;\n}\n\n.srch_bar .input-group-addon button {\n    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n    border: medium none;\n    padding: 0;\n    color: #707070;\n    font-size: 18px;\n}\n\n.srch_bar .input-group-addon {\n    margin: 0 0 0 -27px;\n}\n\n.chat_ib h5 {\n    font-size: 15px;\n    color: #464646;\n    margin: 0 0 8px 0;\n}\n\n.chat_ib h5 span {\n    font-size: 13px;\n    float: right;\n}\n\n.chat_ib p {\n    font-size: 14px;\n    color: #989898;\n    margin: auto\n}\n\n.chat_img {\n    float: left;\n    width: 11%;\n}\n\n.chat_ib {\n    float: left;\n    padding: 0 0 0 15px;\n    width: 88%;\n}\n\n.chat_people {\n    overflow: hidden;\n    clear: both;\n    cursor: pointer\n}\n\n.chat_list {\n    border-bottom: 1px solid #c4c4c4;\n    margin: 0;\n    padding: 18px 16px 10px;\n}\n\n.inbox_chat {\n    height: 600px;\n    overflow-y: scroll;\n}\n\n.active_chat {\n    background: #ebebeb;\n}\n\n.incoming_msg_img {\n    display: inline-block;\n    width: 6%;\n}\n\n.received_msg {\n    display: inline-block;\n    padding: 0 0 0 10px;\n    vertical-align: top;\n    width: 92%;\n}\n\n.received_withd_msg p {\n    background: #ebebeb none repeat scroll 0 0;\n    border-radius: 3px;\n    color: #646464;\n    font-size: 14px;\n    margin: 0;\n    padding: 5px 10px 5px 12px;\n    width: 100%;\n}\n\n.time_date {\n    color: #747474;\n    display: block;\n    font-size: 12px;\n    margin: 0px;\n    margin-bottom: 10px;\n}\n\n.received_withd_msg {\n    width: 57%;\n}\n\n.mesgs {\n    float: left;\n    padding: 30px 15px 0 25px;\n    width: 60%;\n}\n\n.sent_msg p {\n    background: #05728f none repeat scroll 0 0;\n    border-radius: 3px;\n    font-size: 14px;\n    margin: 0;\n    color: #fff;\n    padding: 5px 10px 5px 12px;\n    width: 100%;\n}\n\n.outgoing_msg {\n    overflow: hidden;\n}\n\n.sent_msg {\n    float: right;\n    width: 46%;\n}\n\n.input_msg_write input {\n    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n    border: medium none;\n    color: #4c4c4c;\n    font-size: 15px;\n    min-height: 48px;\n    width: 100%;\n}\n\n.type_msg {\n    border-top: 1px solid #c4c4c4;\n    position: relative;\n}\n\n.msg_send_btn {\n    background: #05728f none repeat scroll 0 0;\n    border: medium none;\n    border-radius: 50%;\n    color: #fff;\n    cursor: pointer;\n    font-size: 17px;\n    height: 33px;\n    position: absolute;\n    right: 0;\n    top: 11px;\n    width: 33px;\n}\n\n.messaging {\n    padding: 0 0 50px 0;\n}\n\n.msg_history {\n    height: 516px;\n    overflow-y: auto;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

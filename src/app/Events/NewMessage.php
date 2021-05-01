@@ -36,7 +36,7 @@ class NewMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return [$this->channel_name];
+        return new PrivateChannel('App.Models.Chat.'. $this->channel_name);
     }
 
     public function broadcastAs()
