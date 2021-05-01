@@ -28,19 +28,24 @@ class ChatPanel extends Component {
     render() {
         return (<div className="mesgs">
             <div id={"msg_history"} className="msg_history">
+
                 {
                     this.props.selectedUser ? (
                             <>
-                                {this.props.messages?.map((item, index) => {
+                                <p id={'typing'}
+                                   style={{display: this.props.typingDisplay}}>{this.props.selectedUser.name} Yazıyor...</p>
+                                <>
+                                    {this.props.messages?.map((item, index) => {
 
-                                    if (JSON.parse(item).from == window.user_id) {
-                                        return <Message key={index} from={'me'} message={JSON.parse(item).message}
-                                                        time={'11:01 AM    |    June 9'}/>
-                                    } else {
-                                        return <Message key={index} from={'other'} message={JSON.parse(item).message}
-                                                        time={'11.01.2021'}/>
-                                    }
-                                })}
+                                        if (JSON.parse(item).from == window.user_id) {
+                                            return <Message key={index} from={'me'} message={JSON.parse(item).message}
+                                                            time={'11:01 AM    |    June 9'}/>
+                                        } else {
+                                            return <Message key={index} from={'other'} message={JSON.parse(item).message}
+                                                            time={'11.01.2021'}/>
+                                        }
+                                    })}
+                                </>
                             </>)
                         :
                         <h3>Henüz Bir Kişi Seçmediniz!</h3>

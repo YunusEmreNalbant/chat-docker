@@ -2070,7 +2070,8 @@ var Chat = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       users: [],
       selectedUser: null,
-      messages: []
+      messages: [],
+      typingDisplay: 'none'
     };
     _this.selectUser = _this.selectUser.bind(_assertThisInitialized(_this));
     _this.whisper = _this.whisper.bind(_assertThisInitialized(_this));
@@ -2088,10 +2089,10 @@ var Chat = /*#__PURE__*/function (_React$Component) {
         });
 
         if (prevState.selectedUser && prevState.selectedUser.channel_name) {
-          window.Echo["private"]('laravel_database_App.Models.Chat.' + prevState.selectedUser.channel_name).stopListening('.test');
+          window.Echo["private"]('App.Models.Chat.' + prevState.selectedUser.channel_name).stopListening('.test');
         }
 
-        window.Echo["private"]('laravel_database_App.Models.Chat.' + this.state.selectedUser.channel_name).listen('.test', function (e) {
+        window.Echo["private"]('App.Models.Chat.' + this.state.selectedUser.channel_name).listen('.test', function (e) {
           var messages1 = _this2.state.messages;
           messages1.push(JSON.stringify(e));
 
@@ -2101,11 +2102,18 @@ var Chat = /*#__PURE__*/function (_React$Component) {
             _this2.scrollToBottom();
           });
         }).listenForWhisper('typing', function (e) {
-          e.typing ? console.log("yazıyor") : console.log("yazmıyor");
+          console.log(e);
+          e.typing ? _this2.setState({
+            typingDisplay: 'block'
+          }) : _this2.setState({
+            typingDisplay: 'none'
+          });
+          setTimeout(function () {
+            _this2.setState({
+              typingDisplay: 'none'
+            });
+          }, 3000);
         });
-        setTimeout(function () {
-          console.log("yazıyor");
-        }, 1000);
       }
     }
   }, {
@@ -2159,13 +2167,13 @@ var Chat = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "whisper",
     value: function whisper(channel_name) {
-      var channel = window.Echo["private"]('laravel_database_App.Models.Chat.' + channel_name);
+      var channel = window.Echo["private"]('App.Models.Chat.' + channel_name);
       setTimeout(function () {
         channel.whisper('typing', {
           user: window.user_id,
           typing: true
         });
-      }, 300);
+      }, 1000);
     }
   }, {
     key: "getMessages",
@@ -2218,6 +2226,7 @@ var Chat = /*#__PURE__*/function (_React$Component) {
               selectUser: this.selectUser,
               users: this.state.users
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ChatComponent_ChatPanel__WEBPACK_IMPORTED_MODULE_2__.default, {
+              typingDisplay: this.state.typingDisplay,
               whisper: this.whisper,
               updateMessages: this.updateMessages,
               sendMessage: this.sendMessage,
@@ -2324,22 +2333,30 @@ var ChatPanel = /*#__PURE__*/function (_Component) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           id: "msg_history",
           className: "msg_history",
-          children: this.props.selectedUser ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-            children: (_this$props$messages = this.props.messages) === null || _this$props$messages === void 0 ? void 0 : _this$props$messages.map(function (item, index) {
-              if (JSON.parse(item).from == window.user_id) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
-                  from: 'me',
-                  message: JSON.parse(item).message,
-                  time: '11:01 AM    |    June 9'
-                }, index);
-              } else {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
-                  from: 'other',
-                  message: JSON.parse(item).message,
-                  time: '11.01.2021'
-                }, index);
-              }
-            })
+          children: this.props.selectedUser ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("p", {
+              id: 'typing',
+              style: {
+                display: this.props.typingDisplay
+              },
+              children: [this.props.selectedUser.name, " Yaz\u0131yor..."]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+              children: (_this$props$messages = this.props.messages) === null || _this$props$messages === void 0 ? void 0 : _this$props$messages.map(function (item, index) {
+                if (JSON.parse(item).from == window.user_id) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
+                    from: 'me',
+                    message: JSON.parse(item).message,
+                    time: '11:01 AM    |    June 9'
+                  }, index);
+                } else {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
+                    from: 'other',
+                    message: JSON.parse(item).message,
+                    time: '11.01.2021'
+                  }, index);
+                }
+              })
+            })]
           }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
             children: "Hen\xFCz Bir Ki\u015Fi Se\xE7mediniz!"
           })

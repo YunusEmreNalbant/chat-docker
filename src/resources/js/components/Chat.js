@@ -7,7 +7,7 @@ import "./../../css/chat.css"
 class Chat extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {users: [], selectedUser: null, messages: []};
+        this.state = {users: [], selectedUser: null, messages: [], typingDisplay: 'none'};
         this.selectUser = this.selectUser.bind(this);
         this.whisper = this.whisper.bind(this);
     }
@@ -16,22 +16,24 @@ class Chat extends React.Component {
         if (prevState.selectedUser !== this.state.selectedUser) {
             this.setState({messages: []});
             if (prevState.selectedUser && prevState.selectedUser.channel_name) {
-                window.Echo.private('laravel_database_App.Models.Chat.' + prevState.selectedUser.channel_name).stopListening('.test');
+                window.Echo.private('App.Models.Chat.' + prevState.selectedUser.channel_name).stopListening('.test');
 
             }
-            window.Echo.private('laravel_database_App.Models.Chat.' + this.state.selectedUser.channel_name).listen('.test', (e) => {
+            window.Echo.private('App.Models.Chat.' + this.state.selectedUser.channel_name).listen('.test', (e) => {
                 var messages1 = this.state.messages;
                 messages1.push(JSON.stringify(e));
                 this.setState({messages: messages1}, () => {
                     this.scrollToBottom();
                 });
             }).listenForWhisper('typing', (e) => {
-                e.typing ? console.log("yazıyor") : console.log("yazmıyor")
-            })
+                console.log(e);
+                e.typing ? this.setState({typingDisplay: 'block'}) : this.setState({typingDisplay: 'none'})
+                setTimeout(() => {
+                    this.setState({typingDisplay: 'none'})
+                }, 3000)
+            });
 
-            setTimeout( () => {
-                console.log("yazıyor")
-            }, 1000)
+
         }
     }
 
@@ -58,15 +60,13 @@ class Chat extends React.Component {
     }
 
     whisper(channel_name) {
-
-        let channel = window.Echo.private('laravel_database_App.Models.Chat.' + channel_name)
-
+        let channel = window.Echo.private('App.Models.Chat.' + channel_name)
         setTimeout(() => {
             channel.whisper('typing', {
                 user: window.user_id,
                 typing: true
             })
-        }, 300)
+        }, 1000)
     }
 
     getMessages(selectedUser) {
@@ -101,7 +101,9 @@ class Chat extends React.Component {
                     <div className="inbox_msg">
                         <UserList selectedUser={this.state.selectedUser} selectUser={this.selectUser}
                                   users={this.state.users}/>
-                        <ChatPanel whisper={this.whisper} updateMessages={this.updateMessages} sendMessage={this.sendMessage}
+                        <ChatPanel typingDisplay={this.state.typingDisplay}
+                            whisper={this.whisper} updateMessages={this.updateMessages}
+                                   sendMessage={this.sendMessage}
                                    selectedUser={this.state.selectedUser}
                                    messages={this.state.messages}/>
                     </div>

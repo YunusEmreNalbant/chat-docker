@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const env = process.env;
 console.log(env.REDIS_HOST)
+console.log(env.APP_URL)
 
 require('laravel-echo-server').run({
     authHost: env.APP_URL,

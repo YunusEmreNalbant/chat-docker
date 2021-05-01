@@ -1,9 +1,9 @@
 {
   "apiOriginAllow": {},
   "authEndpoint": "/broadcasting/auth",
-  "authHost": "http://localhost",
+  "authHost": "http://localhost:8080",
   "clients": [],
-  "database": "sqlite",
+  "database": "redis",
   "databaseConfig": {
     "sqlite": {
       "databasePath": "/database/laravel-echo-server.sqlite"

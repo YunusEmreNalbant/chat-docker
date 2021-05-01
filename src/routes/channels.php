@@ -18,6 +18,5 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 });
 Broadcast::channel('App.Models.Chat.{channel}', function ($user, $channel) {
     $friend = \App\Models\Friend::where('channel_name', $channel)->firstOrFail();
-
     return $friend->inviter_id == $user->id || $friend->receiver_id == $user->id;
 });
