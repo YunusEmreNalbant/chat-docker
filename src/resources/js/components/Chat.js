@@ -1,72 +1,75 @@
-import React, {useEffect, useState} from 'react';
-import ReactDOM from 'react-dom';
-import "./../../css/chat.css"
+import React, {Component} from 'react';
 import ChatPanel from "./ChatComponent/ChatPanel";
 import UserList from "./ChatComponent/UserList";
+import ReactDOM from 'react-dom'
 
-function Chat() {
-
-
-    const [users, setUsers] = useState([]);
-    const [selectedUser, setSelectedUser] = useState(null);
-    const [messages, setMessages] = useState([]);
-
-
-    function getMessages(selectedUser) {
-        if (selectedUser) {
-            window.axios.post(window.staticUrl + 'get-messages', {channel_name: selectedUser && selectedUser.channel_name}).then(res => {
-                setMessages(res.data);
-            })
-        }
+class Chat extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {users: [], selectedUser: null, messages: []};
     }
 
-    async function sendMessage(message) {
-        window.axios.post(window.staticUrl + 'send-messages', {
-            channel_name: selectedUser && selectedUser.channel_name,
-            message: message
-        }).then(res => console.log(res)).catch(err => {
-            console.log(err);
-        });
-    }
-
-    function updateMessages(message) {
-        setMessages([...messages,message]);
-    }
-
-    useEffect(() => {
-        getMessages(selectedUser);
-    }, [selectedUser])
-
-    useEffect(() => {
+    componentDidMount() {
+        console.log("ok")
         window.axios.get(window.staticUrl + 'friends').then(async (res) => {
-            await setUsers(res.data.data);
+            await this.setState(res.data.data);
 
         }).catch(err => {
             console.log(err);
         });
 
 
-    }, [])
+    }
 
-    return (
-        <div className={"container-fluid"} style={{marginTop: 10}}>
-            <div className="messaging">
-                <div className="inbox_msg">
-                    <UserList selectedUser={selectedUser} selectUser={setSelectedUser} users={users}/>
-                    <ChatPanel updateMessages={updateMessages} sendMessage={sendMessage} selectedUser={selectedUser}
-                               messages={messages}/>
+    selectUser(user) {
+        this.setState({selectedUser: user}, () => {
+            this.getMessages(this.state.selectedUser)
+        });
+
+    }
+
+    getMessages(selectedUser) {
+        if (selectedUser) {
+            window.axios.post(window.staticUrl + 'get-messages',
+                {channel_name: selectedUser && selectedUser.channel_name}).then(res => {
+                this.setState(res.data);
+            })
+        }
+    }
+
+    sendMessage(message) {
+        window.axios.post(window.staticUrl + 'send-messages', {
+            channel_name: this.state.selectedUser.channel_name,
+            message: message
+        }).then(res => console.log(res)).catch(err => {
+            console.log(err);
+        });
+    }
+
+    updateMessages(message) {
+        // setMessages([...messages,message]);
+        this.setState([...this.state.messages, message])
+    }
+
+    render() {
+
+        return (
+            <div className={"container-fluid"} style={{marginTop: 10}}>
+                <div className="messaging">
+                    <div className="inbox_msg">
+                        <UserList selectedUser={this.state.selectedUser} users={this.state.users}/>
+                        <ChatPanel updateMessages={this.updateMessages} sendMessage={this.sendMessage}
+                                   selectedUser={this.state.selectedUser}
+                                   messages={this.state.messages}/>
+                    </div>
                 </div>
-            </div>
-            <ul>
-                {messages.map(item=>(<li>{item.message}</li>))}
 
-            </ul>
-        </div>
-    );
+            </div>
+        );
+    }
 }
 
 export default Chat;
-
 if (document.getElementById('example')) {
     ReactDOM.render(<Chat/>, document.getElementById('example'));
 }
