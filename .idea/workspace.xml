@@ -3,14 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="149d2915-f068-4cda-b1b5-ea4c9cc5b686" name="Default Changelist" comment="basic çalışan v">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.env" beforeDir="false" afterPath="$PROJECT_DIR$/echo/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/laravel-echo-server.json" beforeDir="false" afterPath="$PROJECT_DIR$/echo/laravel-echo-server.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/echo/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/js/components/Chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/js/components/Chat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/ChatPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/ChatPanel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/channels.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/channels.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/laravel-echo-server.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +62,7 @@
       <recent name="C:\Users\y.nalbant\Desktop\chat-docker\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.docker-compose.yml.php: Compose Deployment">
+  <component name="RunManager" selected="Docker.docker-compose.yml.redis: Compose Deployment">
     <configuration name="docker-compose.yml.php: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
@@ -125,7 +118,8 @@
       <workItem from="1619792151328" duration="14932000" />
       <workItem from="1619822375752" duration="4023000" />
       <workItem from="1619876797395" duration="4066000" />
-      <workItem from="1619892382215" duration="2925000" />
+      <workItem from="1619892382215" duration="3122000" />
+      <workItem from="1619899731019" duration="868000" />
     </task>
     <task id="LOCAL-00001" summary="env updated">
       <created>1619549621110</created>
@@ -183,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619880536848</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="basic çalışan v">
+      <created>1619895632831</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1619895632831</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
