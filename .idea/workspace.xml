@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="149d2915-f068-4cda-b1b5-ea4c9cc5b686" name="Default Changelist" comment="">
+    <list default="true" id="149d2915-f068-4cda-b1b5-ea4c9cc5b686" name="Default Changelist" comment="bişeyler">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/js/components/Chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/js/components/Chat.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/ChatPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/ChatPanel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/Message.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/Message.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/User.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/UserList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/UserList.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +50,6 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2019.3.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -120,7 +117,9 @@
       <workItem from="1619722809153" duration="697000" />
       <workItem from="1619723637956" duration="330000" />
       <workItem from="1619724314058" duration="1470000" />
-      <workItem from="1619792151328" duration="13592000" />
+      <workItem from="1619792151328" duration="14932000" />
+      <workItem from="1619822375752" duration="4023000" />
+      <workItem from="1619876797395" duration="3406000" />
     </task>
     <task id="LOCAL-00001" summary="env updated">
       <created>1619549621110</created>
@@ -143,14 +142,35 @@
       <option name="project" value="LOCAL" />
       <updated>1619561075792</updated>
     </task>
-    <task id="LOCAL-00004" summary="user list field active color">
-      <created>1619815459175</created>
+    <task id="LOCAL-00004" summary="bişeyler">
+      <created>1619809406239</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1619815459175</updated>
+      <updated>1619809406239</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="bişeyler">
+      <created>1619813264600</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1619813264600</updated>
+    </task>
+    <task id="LOCAL-00006" summary="bişeyler">
+      <created>1619813365997</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1619813365997</updated>
+    </task>
+    <task id="LOCAL-00007" summary="bişeyler">
+      <created>1619826340229</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1619826340229</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,18 +191,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="env updated" />
     <MESSAGE value="echo server" />
-    <MESSAGE value="user list field active color" />
-    <option name="LAST_COMMIT_MESSAGE" value="user list field active color" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/resources/js/components/ChatComponent/ChatPanel.js</url>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="bişeyler" />
+    <option name="LAST_COMMIT_MESSAGE" value="bişeyler" />
   </component>
 </project>

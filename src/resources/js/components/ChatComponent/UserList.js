@@ -1,6 +1,8 @@
 import React from 'react';
 import User from "./User";
 
+
+
 const UserList = (props) => {
     return (
         <div className="inbox_people">
