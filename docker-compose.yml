@@ -69,6 +69,7 @@ services:
     build:
       context: ./echo
       dockerfile: Dockerfile
+    restart: unless-stopped
     ports:
       - "6001:6001"
     networks:

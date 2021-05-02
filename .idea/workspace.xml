@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="149d2915-f068-4cda-b1b5-ea4c9cc5b686" name="Default Changelist" comment="basic çalışan v">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/laravel-echo-server.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +120,9 @@
       <workItem from="1619876797395" duration="4066000" />
       <workItem from="1619892382215" duration="3122000" />
       <workItem from="1619899731019" duration="868000" />
+      <workItem from="1619901001519" duration="1105000" />
+      <workItem from="1619902684960" duration="1071000" />
+      <workItem from="1619986940040" duration="251000" />
     </task>
     <task id="LOCAL-00001" summary="env updated">
       <created>1619549621110</created>
@@ -184,7 +187,21 @@
       <option name="project" value="LOCAL" />
       <updated>1619895632831</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="basic çalışan v">
+      <created>1619902692161</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1619902692161</updated>
+    </task>
+    <task id="LOCAL-00011" summary="basic çalışan v">
+      <created>1619903639870</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1619903639870</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
