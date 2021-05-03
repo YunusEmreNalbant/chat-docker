@@ -71,5 +71,3 @@ class ChatPanel extends Component {
 }
 
 export default ChatPanel
-
-

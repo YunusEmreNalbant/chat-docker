@@ -19,6 +19,7 @@ class CreateFriendsTable extends Migration
             $table->foreignId('receiver_id')->references('id')->on('users');//Teklifi değerlendiren
             $table->boolean('approved')->default(false);
             $table->string('channel_name')->nullable();
+            $table->integer('read')->default(0);
             $table->unique(['inviter_id', 'receiver_id']);
             $table->timestamps();
         });

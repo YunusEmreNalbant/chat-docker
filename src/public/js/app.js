@@ -2572,7 +2572,7 @@ __webpack_require__.r(__webpack_exports__);
 var User = function User(props) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     style: props.userStyle ? {
-      backgroundColor: 'gray'
+      backgroundColor: '#f1f1f1'
     } : null,
     className: "chat_list",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -2588,14 +2588,19 @@ var User = function User(props) {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         className: "chat_ib",
-        style: {
-          backgroundColor: props.user.is_new ? 'green' : 'gray'
-        },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
           children: props.user.name
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
           children: "-"
         })]
+      }), props.user.is_new && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        style: {
+          textAlign: 'right'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+          className: "badge rounded bg-success",
+          children: "Yeni Mesaj\u0131n\u0131z Var"
+        })
       })]
     })
   });

@@ -2,18 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="149d2915-f068-4cda-b1b5-ea4c9cc5b686" name="Default Changelist" comment="basic çalışan v">
-      <change afterPath="$PROJECT_DIR$/src/app/Events/NewMessageToUser.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Events/NewMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Events/MessageToChannel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Http/Controllers/ChatController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Http/Controllers/ChatController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Http/Controllers/MainController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Listeners/NewMessageListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Listeners/MessageToChannelListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Providers/EventServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Providers/EventServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database/migrations/2021_04_30_161324_create_friends_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/migrations/2021_04_30_161324_create_friends_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/public/mix-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/css/chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/css/chat.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/js/components/Chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/js/components/Chat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/ChatPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/ChatPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/Message.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/Message.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/User.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/UserList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/js/components/ChatComponent/UserList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/channels.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/channels.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +52,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/app/Events" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/app/Http/Resources" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
@@ -62,10 +61,10 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/app/Events" />
       <recent name="$PROJECT_DIR$/src/app/Http/Resources" />
       <recent name="$PROJECT_DIR$/src/app/Models" />
       <recent name="C:\Users\y.nalbant\Desktop\chat-docker" />
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -132,7 +131,7 @@
       <workItem from="1619899731019" duration="868000" />
       <workItem from="1619901001519" duration="1105000" />
       <workItem from="1619902684960" duration="1071000" />
-      <workItem from="1619986940040" duration="9439000" />
+      <workItem from="1619986940040" duration="251000" />
     </task>
     <task id="LOCAL-00001" summary="env updated">
       <created>1619549621110</created>
@@ -211,21 +210,7 @@
       <option name="project" value="LOCAL" />
       <updated>1619903639870</updated>
     </task>
-    <task id="LOCAL-00012" summary="basic çalışan v">
-      <created>1619987205143</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1619987205143</updated>
-    </task>
-    <task id="LOCAL-00013" summary="basic çalışan v">
-      <created>1620051639430</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1620051639430</updated>
-    </task>
-    <option name="localTasksCounter" value="14" />
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -249,5 +234,17 @@
     <MESSAGE value="bişeyler" />
     <MESSAGE value="basic çalışan v" />
     <option name="LAST_COMMIT_MESSAGE" value="basic çalışan v" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/resources/js/components/ChatComponent/User.js</url>
+          <line>8</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
