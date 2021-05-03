@@ -7,7 +7,7 @@ const User = (props) => {
         <div style={props.userStyle ? {backgroundColor:'gray'} : null} className="chat_list">
 
             <div className="chat_people mb-3" onClick={() => {
-                props.selectUser(props.user)
+               props.selectUser(props.user)
             }}>
                 <div className="chat_img"><img
                     src="https://ptetutorials.com/images/user-profile.png"

@@ -2155,15 +2155,35 @@ var Chat = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "selectUser",
-    value: function selectUser(user) {
-      var _this4 = this;
+    value: function () {
+      var _selectUser = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(user) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return this.setState({
+                  selectedUser: user
+                });
 
-      this.setState({
-        selectedUser: user
-      }, function () {
-        _this4.getMessages(_this4.state.selectedUser);
-      });
-    }
+              case 2:
+                _context2.next = 4;
+                return this.getMessages(this.state.selectedUser);
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function selectUser(_x2) {
+        return _selectUser.apply(this, arguments);
+      }
+
+      return selectUser;
+    }()
   }, {
     key: "whisper",
     value: function whisper(channel_name) {
@@ -2177,21 +2197,64 @@ var Chat = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "getMessages",
-    value: function getMessages(selectedUser) {
-      var _this5 = this;
+    value: function () {
+      var _getMessages = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(selectedUser) {
+        var _this4 = this;
 
-      if (selectedUser) {
-        window.axios.post(window.staticUrl + 'get-messages', {
-          channel_name: this.state.selectedUser && this.state.selectedUser.channel_name
-        }).then(function (res) {
-          _this5.setState({
-            messages: res.data
-          }, function () {
-            _this5.scrollToBottom();
-          });
-        });
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                if (!selectedUser) {
+                  _context4.next = 3;
+                  break;
+                }
+
+                _context4.next = 3;
+                return window.axios.post(window.staticUrl + 'get-messages', {
+                  channel_name: this.state.selectedUser && this.state.selectedUser.channel_name
+                }).then( /*#__PURE__*/function () {
+                  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(res) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+                      while (1) {
+                        switch (_context3.prev = _context3.next) {
+                          case 0:
+                            _context3.next = 2;
+                            return _this4.setState({
+                              messages: res.data
+                            });
+
+                          case 2:
+                            _context3.next = 4;
+                            return _this4.scrollToBottom();
+
+                          case 4:
+                          case "end":
+                            return _context3.stop();
+                        }
+                      }
+                    }, _callee3);
+                  }));
+
+                  return function (_x4) {
+                    return _ref2.apply(this, arguments);
+                  };
+                }());
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function getMessages(_x3) {
+        return _getMessages.apply(this, arguments);
       }
-    }
+
+      return getMessages;
+    }()
   }, {
     key: "sendMessage",
     value: function sendMessage(selectedUser, message) {

@@ -52,11 +52,9 @@ class Chat extends React.Component {
     }
 
 
-    selectUser(user) {
-
-        this.setState({selectedUser: user}, () => {
-            this.getMessages(this.state.selectedUser)
-        });
+    async selectUser(user) {
+        await this.setState({selectedUser: user});
+        await this.getMessages(this.state.selectedUser);
     }
 
     whisper(channel_name) {
@@ -69,15 +67,16 @@ class Chat extends React.Component {
         }, 1000)
     }
 
-    getMessages(selectedUser) {
+    async getMessages(selectedUser) {
         if (selectedUser) {
-            window.axios.post(window.staticUrl + 'get-messages',
-                {channel_name: this.state.selectedUser && this.state.selectedUser.channel_name}).then(res => {
-                this.setState({messages: res.data}, () => {
-                    this.scrollToBottom()
-                });
+            await window.axios.post(window.staticUrl + 'get-messages',
+                {channel_name: this.state.selectedUser && this.state.selectedUser.channel_name}).then(async (res) => {
+                await this.setState({messages: res.data});
+                await this.scrollToBottom()
+
             })
         }
+
     }
 
     sendMessage(selectedUser, message) {
@@ -102,7 +101,7 @@ class Chat extends React.Component {
                         <UserList selectedUser={this.state.selectedUser} selectUser={this.selectUser}
                                   users={this.state.users}/>
                         <ChatPanel typingDisplay={this.state.typingDisplay}
-                            whisper={this.whisper} updateMessages={this.updateMessages}
+                                   whisper={this.whisper} updateMessages={this.updateMessages}
                                    sendMessage={this.sendMessage}
                                    selectedUser={this.state.selectedUser}
                                    messages={this.state.messages}/>
