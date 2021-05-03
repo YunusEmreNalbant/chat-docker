@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\NewMessage;
+use App\Events\MessageToChannel;
+use App\Events\NewMessageEvent;
+use App\Events\NewMessageToUser;
+use App\Models\Friend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
@@ -17,9 +20,11 @@ class ChatController extends Controller
     {
         $channel_name = $request->channel_name;
         $message = $request->message;
-
-        event(new NewMessage($message, $channel_name));
-
+        $friend = Friend::where('channel_name', $request->channel_name)->firstOrFail();
+        $isInviter = $friend->inviter_id == \auth()->id() ? true : false;
+        $otherUser = $isInviter ? $friend->receiver_id : $friend->inviter_id;
+        event(new NewMessageToUser($otherUser));
+        event(new MessageToChannel($message, $channel_name));
     }
 
     public function getMessages(Request $request)

@@ -12,7 +12,7 @@ const User = (props) => {
                 <div className="chat_img"><img
                     src="https://ptetutorials.com/images/user-profile.png"
                     alt="sunil"/></div>
-                <div className="chat_ib">
+                <div className="chat_ib" style={{backgroundColor:props.user.is_new ? 'green' : 'gray'}}>
                     <h5>{props.user.name}</h5>
                     <p>-</p>
                 </div>

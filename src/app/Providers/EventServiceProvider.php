@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Events\NewMessage;
-use App\Listeners\NewMessageListener;
+use App\Events\MessageToChannel;
+use App\Listeners\MessageToChannelListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,9 +20,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        NewMessage::class=>[
-            NewMessageListener::class
-        ]
+        MessageToChannel::class=>[
+            MessageToChannelListener::class
+        ],
+
     ];
 
     /**

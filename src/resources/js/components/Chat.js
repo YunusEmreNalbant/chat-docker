@@ -5,11 +5,20 @@ import ReactDOM from 'react-dom'
 import "./../../css/chat.css"
 
 class Chat extends React.Component {
+
     constructor(props) {
         super(props);
-        this.state = {users: [], selectedUser: null, messages: [], typingDisplay: 'none'};
+        this.state = {
+            users: [],
+            selectedUser: null,
+            messages: [],
+            typingDisplay: 'none',
+            unreadUsers: [],
+            orderedUsers: [],
+        };
         this.selectUser = this.selectUser.bind(this);
         this.whisper = this.whisper.bind(this);
+
     }
 
     componentDidUpdate(prevProp, prevState) {
@@ -26,7 +35,6 @@ class Chat extends React.Component {
                     this.scrollToBottom();
                 });
             }).listenForWhisper('typing', (e) => {
-                console.log(e);
                 e.typing ? this.setState({typingDisplay: 'block'}) : this.setState({typingDisplay: 'none'})
                 setTimeout(() => {
                     this.setState({typingDisplay: 'none'})
@@ -43,18 +51,40 @@ class Chat extends React.Component {
     }
 
     componentDidMount() {
-
+        window.Echo.private('App.Models.User.' + window.user_id).listen('.test', (e) => {
+            if (this.state.selectedUser) {
+                if (this.state.selectedUser.id !== e.user) {
+                    this.addToUnreadUsers(e.user);
+                }
+            } else {
+                this.addToUnreadUsers(e.user);
+            }
+        });
         window.axios.get(window.staticUrl + 'friends').then(async (res) => {
-            await this.setState({users: res.data.data});
+            await this.setState({users: res.data.data, orderedUsers: res.data.data});
         }).catch(err => {
             console.log(err);
         });
     }
 
+    addToUnreadUsers(user_id) {
+        let newObj = this.state.users.find(user => user.id == user_id);
+        newObj.is_new = true;
+        this.setState({orderedUsers: [newObj, ...this.state.users.filter(user => user.id !== user_id)]})
+    }
+
+    removeFromUnreadUsers(user_id) {
+        let index = this.state.orderedUsers.findIndex(user => user.id == user_id);
+        let newArr = this.state.orderedUsers;
+        newArr[index].is_new = false;
+        this.setState({orderedUsers: newArr});
+    }
 
     async selectUser(user) {
         await this.setState({selectedUser: user});
         await this.getMessages(this.state.selectedUser);
+        await this.removeFromUnreadUsers(user.id);
+
     }
 
     whisper(channel_name) {
@@ -88,20 +118,17 @@ class Chat extends React.Component {
         });
     }
 
-    updateMessages(message) {
-        console.log(message);
-        //this.setState({messages: [...this.state.messages, message]})
-    }
-
     render() {
         return (
             <div className={"container-fluid"} style={{marginTop: 10}}>
                 <div className="messaging">
                     <div className="inbox_msg">
-                        <UserList selectedUser={this.state.selectedUser} selectUser={this.selectUser}
+                        <UserList selectedUser={this.state.selectedUser}
+                                  orderedUsers={this.state.orderedUsers}
+                                  selectUser={this.selectUser}
                                   users={this.state.users}/>
                         <ChatPanel typingDisplay={this.state.typingDisplay}
-                                   whisper={this.whisper} updateMessages={this.updateMessages}
+                                   whisper={this.whisper}
                                    sendMessage={this.sendMessage}
                                    selectedUser={this.state.selectedUser}
                                    messages={this.state.messages}/>

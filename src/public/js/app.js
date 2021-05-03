@@ -2022,6 +2022,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2071,7 +2083,9 @@ var Chat = /*#__PURE__*/function (_React$Component) {
       users: [],
       selectedUser: null,
       messages: [],
-      typingDisplay: 'none'
+      typingDisplay: 'none',
+      unreadUsers: [],
+      orderedUsers: []
     };
     _this.selectUser = _this.selectUser.bind(_assertThisInitialized(_this));
     _this.whisper = _this.whisper.bind(_assertThisInitialized(_this));
@@ -2102,7 +2116,6 @@ var Chat = /*#__PURE__*/function (_React$Component) {
             _this2.scrollToBottom();
           });
         }).listenForWhisper('typing', function (e) {
-          console.log(e);
           e.typing ? _this2.setState({
             typingDisplay: 'block'
           }) : _this2.setState({
@@ -2127,6 +2140,15 @@ var Chat = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this3 = this;
 
+      window.Echo["private"]('App.Models.User.' + window.user_id).listen('.test', function (e) {
+        if (_this3.state.selectedUser) {
+          if (_this3.state.selectedUser.id !== e.user) {
+            _this3.addToUnreadUsers(e.user);
+          }
+        } else {
+          _this3.addToUnreadUsers(e.user);
+        }
+      });
       window.axios.get(window.staticUrl + 'friends').then( /*#__PURE__*/function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(res) {
           return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -2135,7 +2157,8 @@ var Chat = /*#__PURE__*/function (_React$Component) {
                 case 0:
                   _context.next = 2;
                   return _this3.setState({
-                    users: res.data.data
+                    users: res.data.data,
+                    orderedUsers: res.data.data
                   });
 
                 case 2:
@@ -2151,6 +2174,31 @@ var Chat = /*#__PURE__*/function (_React$Component) {
         };
       }())["catch"](function (err) {
         console.log(err);
+      });
+    }
+  }, {
+    key: "addToUnreadUsers",
+    value: function addToUnreadUsers(user_id) {
+      var newObj = this.state.users.find(function (user) {
+        return user.id == user_id;
+      });
+      newObj.is_new = true;
+      this.setState({
+        orderedUsers: [newObj].concat(_toConsumableArray(this.state.users.filter(function (user) {
+          return user.id !== user_id;
+        })))
+      });
+    }
+  }, {
+    key: "removeFromUnreadUsers",
+    value: function removeFromUnreadUsers(user_id) {
+      var index = this.state.orderedUsers.findIndex(function (user) {
+        return user.id == user_id;
+      });
+      var newArr = this.state.orderedUsers;
+      newArr[index].is_new = false;
+      this.setState({
+        orderedUsers: newArr
       });
     }
   }, {
@@ -2171,6 +2219,10 @@ var Chat = /*#__PURE__*/function (_React$Component) {
                 return this.getMessages(this.state.selectedUser);
 
               case 4:
+                _context2.next = 6;
+                return this.removeFromUnreadUsers(user.id);
+
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -2268,11 +2320,6 @@ var Chat = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
-    key: "updateMessages",
-    value: function updateMessages(message) {
-      console.log(message); //this.setState({messages: [...this.state.messages, message]})
-    }
-  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
@@ -2286,12 +2333,12 @@ var Chat = /*#__PURE__*/function (_React$Component) {
             className: "inbox_msg",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ChatComponent_UserList__WEBPACK_IMPORTED_MODULE_3__.default, {
               selectedUser: this.state.selectedUser,
+              orderedUsers: this.state.orderedUsers,
               selectUser: this.selectUser,
               users: this.state.users
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ChatComponent_ChatPanel__WEBPACK_IMPORTED_MODULE_2__.default, {
               typingDisplay: this.state.typingDisplay,
               whisper: this.whisper,
-              updateMessages: this.updateMessages,
               sendMessage: this.sendMessage,
               selectedUser: this.state.selectedUser,
               messages: this.state.messages
@@ -2541,6 +2588,9 @@ var User = function User(props) {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         className: "chat_ib",
+        style: {
+          backgroundColor: props.user.is_new ? 'green' : 'gray'
+        },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
           children: props.user.name
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
@@ -2578,7 +2628,7 @@ var UserList = function UserList(props) {
     className: "inbox_people",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "inbox_chat",
-      children: props.users.map(function (user) {
+      children: props.orderedUsers.map(function (user) {
         var _props$selectedUser;
 
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_User__WEBPACK_IMPORTED_MODULE_1__.default, {
