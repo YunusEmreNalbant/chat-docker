@@ -61,7 +61,11 @@ class Chat extends React.Component {
             }
         });
         window.axios.get(window.staticUrl + 'friends').then(async (res) => {
-            await this.setState({users: res.data.data, orderedUsers: res.data.data});
+            await this.setState({users: res.data.data, orderedUsers: res.data.data}, () => {
+                // let unread = this.state.orderedUsers.find(user => user.read != 1);
+
+
+            });
         }).catch(err => {
             console.log(err);
         });

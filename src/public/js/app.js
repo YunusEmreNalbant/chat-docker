@@ -2159,6 +2159,7 @@ var Chat = /*#__PURE__*/function (_React$Component) {
                   return _this3.setState({
                     users: res.data.data,
                     orderedUsers: res.data.data
+                  }, function () {// let unread = this.state.orderedUsers.find(user => user.read != 1);
                   });
 
                 case 2:

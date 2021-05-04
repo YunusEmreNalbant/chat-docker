@@ -9,4 +9,5 @@ class Friend extends Model
 {
     use HasFactory;
 
+    protected $fillable = ["read"];
 }

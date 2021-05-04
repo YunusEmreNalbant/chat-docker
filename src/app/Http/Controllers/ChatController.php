@@ -23,6 +23,7 @@ class ChatController extends Controller
         $friend = Friend::where('channel_name', $request->channel_name)->firstOrFail();
         $isInviter = $friend->inviter_id == \auth()->id() ? true : false;
         $otherUser = $isInviter ? $friend->receiver_id : $friend->inviter_id;
+        $friend->update(["read" => 0]);
         event(new NewMessageToUser($otherUser));
         event(new MessageToChannel($message, $channel_name));
     }
@@ -30,6 +31,7 @@ class ChatController extends Controller
     public function getMessages(Request $request)
     {
         $channel_name = $request->channel_name;
+        Friend::where('channel_name',$channel_name)->update(["read"=>1]);
 
         return Redis::lrange($channel_name, 0, -1);
 
